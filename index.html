@@ -73,14 +73,17 @@
         .details-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 40px 20px;
+            gap: 12px;
+            margin: 40px 15px;
         }
         .detail-box {
             background-color: #f3f0e6;
-            padding: 20px 10px;
+            padding: 20px 8px;
             border-radius: 8px;
             border: 1px solid #e8e3d3;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .detail-box h3 {
             margin: 0 0 10px 0;
@@ -94,6 +97,7 @@
             font-size: 14px;
             color: #333;
             font-weight: bold;
+            line-height: 1.3;
         }
         .detail-box span {
             font-size: 12px;
@@ -102,6 +106,12 @@
             margin-top: 4px;
             font-weight: normal;
         }
+        .floor-highlight {
+            font-weight: bold;
+            color: #b23b3b;
+            font-size: 13px;
+            margin: 2px 0;
+        }
         .btn-location {
             display: inline-flex;
             align-items: center;
@@ -109,26 +119,66 @@
             background-color: #3b5336;
             color: white;
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 8px 10px;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: bold;
-            letter-spacing: 1px;
-            margin-top: 10px;
+            letter-spacing: 0.5px;
+            margin-top: 12px;
             transition: background-color 0.2s;
+            text-transform: uppercase;
         }
         .btn-location:hover {
             background-color: #2b3d27;
         }
         .btn-location svg {
-            margin-right: 6px;
+            margin-right: 4px;
             fill: currentColor;
         }
+        
+        /* Countdown Styles */
+        .countdown-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin: 30px 0 15px 0;
+        }
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .timer-unit {
+            text-align: center;
+        }
+        .timer-num {
+            font-size: 22px;
+            color: #2e4a23;
+            background: #edeae0;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid #dcd8cb;
+            font-weight: bold;
+        }
+        .timer-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            margin-top: 4px;
+        }
+
         .footer-quote {
             font-style: italic;
             color: #888;
             font-size: 13px;
-            margin-top: 40px;
+            margin-top: 30px;
             padding: 0 30px;
         }
     </style>
@@ -153,21 +203,50 @@
         <div class="details-grid">
             <div class="detail-box">
                 <h3>Date</h3>
-                <p>18 November</p>
-                <span>(Tuesday)</span>
+                <div>
+                    <p>18 November</p>
+                    <span>(Tuesday)</span>
+                </div>
             </div>
             <div class="detail-box">
                 <h3>Time</h3>
-                <p>10:00 AM - 11:00 AM</p>
+                <div>
+                    <p>10:00 AM -</p>
+                    <p>11:00 AM</p>
+                </div>
             </div>
             <div class="detail-box">
                 <h3>Venue</h3>
-                <p>MSK Mahal</p>
-                <span>(Mini Party Hall)</span>
+                <div>
+                    <p>MSK Mahal</p>
+                    <div class="floor-highlight">Second Floor</div>
+                    <span>(Mini Party Hall)</span>
+                </div>
                 <a class="btn-location" href="https://maps.app.goo.gl/ArpmSX8ziewEgMy89?g_st=ac" target="_blank">
-                    <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                    Get Directions
+                    <svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    Directions
                 </a>
+            </div>
+        </div>
+        
+        <!-- Live Countdown Segment -->
+        <div class="countdown-title">Countdown to our special day</div>
+        <div class="timer-container">
+            <div class="timer-unit">
+                <div class="timer-num" id="days">00</div>
+                <div class="timer-label">Days</div>
+            </div>
+            <div class="timer-unit">
+                <div class="timer-num" id="hours">00</div>
+                <div class="timer-label">Hours</div>
+            </div>
+            <div class="timer-unit">
+                <div class="timer-num" id="minutes">00</div>
+                <div class="timer-label">Mins</div>
+            </div>
+            <div class="timer-unit">
+                <div class="timer-num" id="seconds">00</div>
+                <div class="timer-label">Secs</div>
             </div>
         </div>
         
@@ -176,5 +255,35 @@
         </div>
     </div>
 
+    <script>
+        // Set event date countdown clock target (November 18)
+        const targetDate = new Date("Nov 18, 2026 10:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = d < 10 ? "0" + d : d;
+            document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
+            document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
+            document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
 </body>
 </html>
